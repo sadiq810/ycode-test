@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\People;
+
 class PeopleController extends Controller
 {
 
@@ -9,5 +11,4 @@ class PeopleController extends Controller
 	{
 		return view('people');
 	}
-
 }
