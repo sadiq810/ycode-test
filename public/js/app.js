@@ -2043,9 +2043,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     handleFileUpload: function handleFileUpload() {
       var type = this.$refs.file.files[0].type;
+      var size = this.$refs.file.files[0].size;
 
       if (!(type.includes('jpeg') || type.includes('jpeg'))) {
         alert('Please select jpg/jpeg image type.');
+        return false;
+      } //..... end if() .....//
+
+
+      size = size / 1024 / 1024;
+
+      if (size > 100) {
+        alert('Max image size is 100MB allowed.');
         return false;
       } //..... end if() .....//
 
@@ -25002,7 +25011,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
-    _c("h1", { staticClass: "text-5xl font-bold text-blue-500 mb-20" }, [
+    _c("h1", { staticClass: "text-5xl font-bold h1 mb-20" }, [
       _vm._v("My Team")
     ]),
     _vm._v(" "),
@@ -25216,7 +25225,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("p", { staticClass: "text-xs text-gray-500" }, [
                     _vm._v(
-                      "\n                            PNG, JPG, GIF up to 10MB\n                        "
+                      "\n                            PNG, JPG, GIF up to 100MB\n                        "
                     )
                   ])
                 ])

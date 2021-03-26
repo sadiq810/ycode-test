@@ -69,7 +69,7 @@ class PeopleController extends Controller
         $validator = Validator::make($request->all(), [
            'name'   => 'required',
            'email'  => 'required|email',
-            'image' => 'sometimes|mimes:jpg,jpeg'
+            'image' => 'sometimes|mimes:jpg,jpeg|max:102400'
         ]);
 
         if ($validator->fails())

@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-    <h1 class="text-5xl font-bold text-blue-500 mb-20">My Team</h1>
+    <h1 class="text-5xl font-bold h1 mb-20">My Team</h1>
     <div class="grid grid-cols-2 gap-20">
 
         <PeopleFormComponent />

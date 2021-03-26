@@ -32,7 +32,7 @@
                                 <p class="pl-1">or drag and drop</p>
                             </div>
                             <p class="text-xs text-gray-500">
-                                PNG, JPG, GIF up to 10MB
+                                PNG, JPG, GIF up to 100MB
                             </p>
                         </div>
                     </div>
@@ -101,9 +101,17 @@ export default {
 
         handleFileUpload(){
             let type = this.$refs.file.files[0].type;
+            let size = this.$refs.file.files[0].size;
 
             if (! (type.includes('jpeg') || type.includes('jpeg'))) {
                 alert('Please select jpg/jpeg image type.');
+                return false;
+            }//..... end if() .....//
+
+            size = size/1024/1024;
+
+            if (size > 100) {
+                alert('Max image size is 100MB allowed.');
                 return false;
             }//..... end if() .....//
 
