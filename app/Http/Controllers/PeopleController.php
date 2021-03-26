@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PeopleResource;
 use App\Models\People;
+use App\Utility\DataFormatter;
 use \Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Validator;
 
 class PeopleController extends Controller
 {
@@ -41,16 +44,8 @@ class PeopleController extends Controller
         $airTablePeople = (new \App\Services\People())->get();
 
         if ($airTablePeople and isset($airTablePeople['records'])) {
-            $people = [];
 
-            foreach ($airTablePeople['records'] as $record)
-                $people[] = [
-                    'airtable_id'   => $record['id'],
-                    'name'          => $record['fields']['Name'] ?? '',
-                    'email'         => $record['fields']['Email'] ?? '',
-                    'photo'         => json_encode($record['fields']['Photo'] ?? []),
-                    'status'        => 1
-                ];
+            $people = (new DataFormatter())->list($airTablePeople['records']);
 
             People::bulkInsert($people);
 
@@ -59,4 +54,46 @@ class PeopleController extends Controller
 
         return collect([]);
 	}//..... end of fetchAndCachePeople() .....//
+
+    /**
+     * @param Request $request
+     * @return array
+     * Create people record first in Airtable and upon successful response,
+     * then save that user to local database for caching.
+     */
+    public function create(Request $request): array
+    {
+        $imageName = null;
+
+        $validator = Validator::make($request->all(), [
+           'name'   => 'required',
+           'email'  => 'required|email',
+            'image' => 'sometimes|mimes:jpg,jpeg'
+        ]);
+
+        if ($validator->fails())
+            return ['status' => false, 'message'=> implode(' ', $validator->errors()->all())];
+
+        if ($request->has('image'))
+            $imageName = $this->uploadImage($request->file('image'));
+
+        $data = [
+            'Name'  => $request->name,
+            'Email' => $request->email
+        ];
+
+        if ($imageName)
+            $data['Photo'][] = ['url' => asset('uploads/'.$imageName)];
+
+        $response = (new \App\Services\People())->save($data);
+
+        if ($response) {
+            $data = (new DataFormatter())->single($response);
+            People::create($data);
+
+            return ['status' => true, 'message' => 'Record saved successfully.'];
+        }//..... end if() .....//
+
+        return ['status' => false, 'message' => 'Could not save record.'];
+    }//..... end of create() ....//
 }

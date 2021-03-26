@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get('list', [PeopleController::class, 'list']);
+Route::post('people', [PeopleController::class, 'create']);

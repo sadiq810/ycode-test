@@ -41,6 +41,6 @@ class PeopleResource extends JsonResource
      */
     private function getThumbnail(array $photo): string
     {
-        return $photo[0]['thumbnails']['small']['url'] ?? '';
+        return $photo[0]['thumbnails']['small']['url'] ?? $photo[0]['url'] ?? '';
     }//..... end of getThumbnail() ....//
 }
