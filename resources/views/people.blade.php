@@ -2,6 +2,7 @@
 <html>
     <head>
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <script>
             var BaseUrl = '{{ url('/') }}';
         </script>
