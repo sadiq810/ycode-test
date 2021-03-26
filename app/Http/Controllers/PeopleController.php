@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PeopleResource;
 use App\Models\People;
+use App\Repositories\PeopleRepository;
 use App\Utility\DataFormatter;
 use \Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class PeopleController extends Controller
      */
     public function list(): AnonymousResourceCollection
     {
-        $people = People::list();
+        $people = (new PeopleRepository)->list();
 
         if ($people->isEmpty())
             $people = $this->fetchAndCachePeople();
@@ -44,12 +45,13 @@ class PeopleController extends Controller
         $airTablePeople = (new \App\Services\People())->get();
 
         if ($airTablePeople and isset($airTablePeople['records'])) {
+            $peopleRepository = new PeopleRepository;
 
             $people = (new DataFormatter())->list($airTablePeople['records']);
 
-            People::bulkInsert($people);
+            $peopleRepository->bulkInsert($people);
 
-            return People::list();
+            return $peopleRepository->list();
         }//..... end if() ....//
 
         return collect([]);
@@ -89,7 +91,7 @@ class PeopleController extends Controller
 
         if ($response) {
             $data = (new DataFormatter())->single($response);
-            People::create($data);
+            (new PeopleRepository)->create($data);
 
             return ['status' => true, 'message' => 'Record saved successfully.'];
         }//..... end if() .....//
