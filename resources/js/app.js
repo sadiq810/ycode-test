@@ -2,7 +2,9 @@ require('./bootstrap');
 
 import Vue from  'vue'
 import Vuex from 'vuex'
+import LaravelVuePagination from 'laravel-vue-tailwind-pagination';
 
+Vue.use(LaravelVuePagination);
 Vue.use(Vuex)
 import storeData from "./store/index"
 

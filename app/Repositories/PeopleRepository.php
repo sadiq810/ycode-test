@@ -14,7 +14,7 @@ class PeopleRepository
      * @param $records
      * Bulk insert.
      */
-    public static function bulkInsert($records): void
+    public function bulkInsert($records): void
     {
         try {
             People::insert($records);
@@ -27,10 +27,20 @@ class PeopleRepository
      * @return Collection
      * Fetch records from database.
      */
-    public static function list(): Collection
+    public function list(): Collection
     {
         return People::all();
     }//..... end of list() .....//
+
+    /**
+     * @param int $limit
+     * @return
+     * Get Paginated Response.
+     */
+    public function paginate($limit = 5)
+    {
+        return People::paginate($limit);
+    }//.... end of paginate() .....//
 
     /**
      * @param $data

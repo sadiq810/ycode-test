@@ -1,6 +1,6 @@
 export default {
     state: {
-        people: []
+        people: {}
     },
 
     getters: {
@@ -10,10 +10,10 @@ export default {
     },
 
     actions: {
-        async fetchPeople({commit}) {
+        async fetchPeople({commit}, page = 1) {
             try {
-                let {data} = await axios.get(BaseUrl+'/api/list');
-                commit('SET_PEOPLE_LIST', data.data);
+                let {data} = await axios.get(BaseUrl+'/api/list?page='+page);
+                commit('SET_PEOPLE_LIST', data);
             } catch (err) {
                 console.error('Error occurred while fetching people list: ', err);
             }

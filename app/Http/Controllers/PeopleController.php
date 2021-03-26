@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PeopleResource;
-use App\Models\People;
 use App\Repositories\PeopleRepository;
 use App\Utility\DataFormatter;
 use \Illuminate\Database\Eloquent\Collection;
@@ -25,9 +24,9 @@ class PeopleController extends Controller
      * First get people list from database and if not found in database,
      * Then fetch them from Airtable Api and cache them for subsequent requests.
      */
-    public function list(): AnonymousResourceCollection
+    public function list(): AnonymousResourceCollection | Illuminate\Pagination\LengthAwarePaginator
     {
-        $people = (new PeopleRepository)->list();
+        $people = (new PeopleRepository)->paginate();
 
         if ($people->isEmpty())
             $people = $this->fetchAndCachePeople();
@@ -40,7 +39,7 @@ class PeopleController extends Controller
      *
      * Fetch records from Airtable and then insert them into Database.
      */
-    private function fetchAndCachePeople(): Collection | \Illuminate\Support\Collection
+    private function fetchAndCachePeople(): Collection | \Illuminate\Support\Collection | \App\Repositories\Illuminate\Pagination\LengthAwarePaginator
     {
         $airTablePeople = (new \App\Services\People())->get();
 
@@ -51,7 +50,7 @@ class PeopleController extends Controller
 
             $peopleRepository->bulkInsert($people);
 
-            return $peopleRepository->list();
+            return $peopleRepository->paginate();
         }//..... end if() ....//
 
         return collect([]);
