@@ -39,15 +39,9 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
-
-insert  into `migrations`(`id`,`migration`,`batch`) values 
-(1,'2014_10_12_000000_create_users_table',1),
-(2,'2014_10_12_100000_create_password_resets_table',1),
-(3,'2019_08_19_000000_create_failed_jobs_table',1),
-(4,'2021_03_25_100455_create_people_table',2);
 
 /*Table structure for table `password_resets` */
 
@@ -76,7 +70,7 @@ CREATE TABLE `people` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `people` */
 
@@ -88,12 +82,15 @@ insert  into `people`(`id`,`airtable_id`,`name`,`email`,`photo`,`status`,`create
 (5,'recyD0gDTDCiWfRCz','Samantha Pullman','samantha@example.com','[{\"id\":\"attiXEwBNPdSI5clX\",\"url\":\"https:\\/\\/dl.airtable.com\\/.attachments\\/d1eba269994f42f8f9ced480004fb7a7\\/0e8394f1\\/samantha-pullman.jpg\",\"filename\":\"samantha-pullman.jpg\",\"size\":1385563,\"type\":\"image\\/jpeg\",\"thumbnails\":{\"small\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/d797c3d14cb44e308b21d7e8b3a17ce2\\/44ad7f1a\",\"width\":36,\"height\":36},\"large\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/39d35f281d03bf6b85cca18629b3102a\\/4d4c6caf\",\"width\":512,\"height\":512},\"full\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/105da9dd1eae26d308ff96d18228e64d\\/acb863be\",\"width\":3000,\"height\":3000}}}]',1,NULL,NULL),
 (6,'recQi2tAciTeYrUzT','Sadiq','sadiq810@gmail.com','[{\"id\":\"attSYOglmiMhxnh9H\",\"url\":\"https:\\/\\/dl.airtable.com\\/.attachments\\/8a5d8ed70367bd2f6e380acb930976c6\\/63012824\\/audrey-marshall.jpg\",\"filename\":\"audrey-marshall.jpg\",\"size\":2151697,\"type\":\"image\\/jpeg\",\"thumbnails\":{\"small\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/09ceb3809d0eb63f6084ae4a9eabd890\\/03f41714\",\"width\":36,\"height\":36},\"large\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/3e18b43f9262a92596be933d841af4ef\\/a22e7f96\",\"width\":512,\"height\":512},\"full\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/1b9259df59eaa6858d983594f1d8995d\\/f6b174a5\",\"width\":3000,\"height\":3000}}}]',1,NULL,NULL),
 (7,'recwYlezC9569yrI2','John Doe','john@doe.com','[{\"id\":\"attzQMGGwY699OajL\",\"url\":\"https:\\/\\/dl.airtable.com\\/.attachments\\/8a5d8ed70367bd2f6e380acb930976c6\\/63012824\\/audrey-marshall.jpg\",\"filename\":\"audrey-marshall.jpg\",\"size\":2151697,\"type\":\"image\\/jpeg\",\"thumbnails\":{\"small\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/09ceb3809d0eb63f6084ae4a9eabd890\\/03f41714\",\"width\":36,\"height\":36},\"large\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/3e18b43f9262a92596be933d841af4ef\\/a22e7f96\",\"width\":512,\"height\":512},\"full\":{\"url\":\"https:\\/\\/dl.airtable.com\\/.attachmentThumbnails\\/1b9259df59eaa6858d983594f1d8995d\\/f6b174a5\",\"width\":3000,\"height\":3000}}}]',1,NULL,NULL),
-(8,'rec5CgEYegOom6ffI','Ali','ali@gmail.com','[{\"id\":\"att28bZylLBEEu7Mt\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/uploads\\/1616750185.jpg\",\"filename\":\"1616750185.jpg\"}]',1,'2021-03-26 09:16:28','2021-03-26 09:16:28'),
-(9,'recd5bNyOD9n1X5NV','wajid','wajid@gmail.com','[]',1,'2021-03-26 09:47:50','2021-03-26 09:47:50'),
-(10,'recARXHDbzvdGR5y0','Javid','javid@gmail.com','[{\"id\":\"attNPt22YU7nRIla0\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/uploads\\/1616756207.jpg\",\"filename\":\"1616756207.jpg\"}]',1,'2021-03-26 10:56:50','2021-03-26 10:56:50'),
-(11,'rechtxuZWRqRXnOef','Subhan','sub@han.com','[]',1,'2021-03-26 11:01:18','2021-03-26 11:01:18'),
-(12,'recGgJqa9rx5HKREi','John','john@gmail.com','[]',1,'2021-03-26 11:07:12','2021-03-26 11:07:12'),
-(13,'recc8zD8cC1gl9bBD','Salam','salam@gmail.com','[{\"id\":\"attXxIBcbhUGPwhIs\",\"url\":\"http:\\/\\/127.0.0.1:8000\\/uploads\\/1616759179.jpg\",\"filename\":\"1616759179.jpg\"}]',1,'2021-03-26 11:46:22','2021-03-26 11:46:22');
+(8,'recyFClUOAluJ8QLF','Jane','jane@gmail.com','[]',1,NULL,NULL),
+(9,'rec5CgEYegOom6ffI','Ali','ali@gmail.com','[]',1,NULL,NULL),
+(10,'recd5bNyOD9n1X5NV','wajid','wajid@gmail.com','[]',1,NULL,NULL),
+(11,'recARXHDbzvdGR5y0','Javid','javid@gmail.com','[]',1,NULL,NULL),
+(12,'rechtxuZWRqRXnOef','Subhan','sub@han.com','[]',1,NULL,NULL),
+(13,'recGgJqa9rx5HKREi','John','john@gmail.com','[]',1,NULL,NULL),
+(14,'recc8zD8cC1gl9bBD','Salam','salam@gmail.com','[]',1,NULL,NULL),
+(15,'recb9BMdeXrG0KJFL','Jamal','jamal@gmail.com','[]',1,NULL,NULL),
+(16,'reczLw5cBHrrpyDcj','Javid','javid@gmail.com','[]',1,NULL,NULL);
 
 /*Table structure for table `users` */
 
