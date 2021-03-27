@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Validator;
 
 class PeopleController extends Controller
 {
+    private const PENDING = 0; //.... means record could not saved at airtable, due to rate limit or any other error.
+    private const SYNCED = 1; //..... means records is saved to airtable successfully.
+    private const UPDATES_PENDING = 2; //..... record is updated locally but not saved to airtable due to any error.
 
 	public function index()
 	{
@@ -69,7 +72,7 @@ class PeopleController extends Controller
         $validator = Validator::make($request->all(), [
            'name'   => 'required',
            'email'  => 'required|email',
-            'image' => 'sometimes|mimes:jpg,jpeg|max:102400'
+           'image'  => 'sometimes|mimes:jpg,jpeg|max:102400'
         ]);
 
         if ($validator->fails())
@@ -89,10 +92,17 @@ class PeopleController extends Controller
         $response = (new \App\Services\People())->save($data);
 
         if ($response) {
-            $data = (new DataFormatter())->single($response);
+            $data = (new DataFormatter())->single($response, self::SYNCED);
             (new PeopleRepository)->create($data);
 
             return ['status' => true, 'message' => 'Record saved successfully.'];
+        } else {
+            (new PeopleRepository)->create(array_merge(
+                    $request->only(['name', 'email'],
+                    ['status' => self::PENDING, 'photo' => json_encode($data['photo'] ?? [])]
+                )));
+
+            return ['status' => true, 'message' => 'Could not save record to Airtable, but cached locally and will be synced later.'];
         }//..... end if() .....//
 
         return ['status' => false, 'message' => 'Could not save record.'];

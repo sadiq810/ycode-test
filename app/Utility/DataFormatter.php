@@ -23,17 +23,18 @@ class DataFormatter
 
     /**
      * @param array $record
+     * @param int $status
      * @return array
      * Format single record.
      */
-    public function single(array $record): array
+    public function single(array $record, $status = 1): array
     {
         return [
             'airtable_id'   => $record['id'],
             'name'          => $record['fields']['Name'] ?? '',
             'email'         => $record['fields']['Email'] ?? '',
             'photo'         => json_encode($record['fields']['Photo'] ?? []),
-            'status'        => 1
+            'status'        => $status
         ];
     }//..... end of single() .....//
 }//..... end of class.
