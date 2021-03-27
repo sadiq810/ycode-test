@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Validator;
 
 class PeopleController extends Controller
 {
-    private const PENDING = 0; //.... means record could not saved at airtable, due to rate limit or any other error.
-    private const SYNCED = 1; //..... means records is saved to airtable successfully.
-    private const UPDATES_PENDING = 2; //..... record is updated locally but not saved to airtable due to any error.
+    public const PENDING = 0; //.... means record could not saved at airtable, due to rate limit or any other error.
+    public const SYNCED = 1; //..... means records is saved to airtable successfully.
+    public const UPDATES_PENDING = 2; //..... record is updated locally but not saved to airtable due to any error.
 
 	public function index()
 	{

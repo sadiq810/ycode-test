@@ -51,4 +51,14 @@ class PeopleRepository
     {
         return People::create($data);
     }//..... end of create() ...../
+
+    /**
+     * @param $data
+     * @return mixed
+     * Update existing record.
+     */
+    public function update(int $id, array $data): int
+    {
+        return People::whereId($id)->update($data);
+    }//..... end of update() ...../
 }
